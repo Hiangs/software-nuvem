@@ -1,18 +1,25 @@
-# bashCopy code
-# Use the official Node.js image as the base image
-FROM node:22
+# Usa a imagem base do Node.js
+FROM node:18
 
-# Set the working directory in the container
-WORKDIR /app
+# Cria e define o diretório de trabalho
+WORKDIR /usr/src/app
 
-# Copy the application files into the working directory
-COPY . /app
+# Copia o package.json e package-lock.json
+COPY package*.json ./
 
-# Install the application dependencies
+# Instala as dependências do projeto
 RUN npm install
 
-# Expose TCP port
-EXPOSE 5080
+# Copia todo o código da aplicação para o diretório de trabalho
+COPY . .
 
-# Define the entry point for the container
+# Expõe a porta que o Parse Server usará
+EXPOSE 1337
+
+# Define a variável de ambiente do Parse Server
+ENV PARSE_SERVER_APPLICATION_ID=yourAppId
+ENV PARSE_SERVER_MASTER_KEY=yourMasterKey
+ENV PARSE_SERVER_DATABASE_URI=mongodb://mongo:27017/dev
+
+# Define o comando para iniciar o Parse Server
 CMD ["npm", "start"]
