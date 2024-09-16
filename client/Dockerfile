@@ -2,7 +2,7 @@
 FROM node:18
 
 # Cria e define o diretório de trabalho
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copia o package.json e package-lock.json
 COPY package*.json ./
